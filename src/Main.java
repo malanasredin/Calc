@@ -6,7 +6,13 @@ class Main {
 
 
     public static void main(String[] args) throws IOException {
-        calc();
+        System.out.println("Введите данные");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String inputString = reader.readLine();
+        String rezultat = calc(inputString);
+        System.out.println(rezultat);
+
+
     }
 
     static int calculator(String operator, int num1, int num2) {
@@ -60,10 +66,10 @@ class Main {
         return arabicNum;
     }
 
-    static void calc() throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Введите данные");
-        String inputString = reader.readLine();
+    static String calc(String inputString) throws IOException {
+        String result = null;
+
+
         String[] sArray = inputString.split(" ");
         String arabicNumbers = "12345678910";
         String romanNumbers = "I II III IV V VI VII VIII IX X";
@@ -78,14 +84,19 @@ class Main {
 
         if (arabicNumbers.contains(sArray[0]) && arabicNumbers.contains(sArray[2])) {
             arabicInputData(sArray);
+            result=arabicInputData(sArray);
+            return result;
         } else if (romanNumbers.contains(sArray[0]) && romanNumbers.contains(sArray[2])) {
             romanInputData(sArray);
+            result=romanInputData(sArray);
+            return result;
+
         } else {
             throw new RuntimeException("Ошибка");
         }
     }
 
-    static void romanInputData(String[] sArray) throws IOException {
+    static String romanInputData(String[] sArray) throws IOException {
 
 
         int arabicNumb1 = convertRomanToArabic(sArray[0]);
@@ -100,10 +111,11 @@ class Main {
 
         String romanSum = integerToRomanNumeral(sum);
 
-        System.out.println(romanSum);
+        return  romanSum;
+
     }
 
-    static void arabicInputData(String[] sArray) throws IOException {
+    static String arabicInputData(String[] sArray) throws IOException {
 
         int num1 = Integer.parseInt(sArray[0]);
         if (num1 < 1 || num1 > 10) {
@@ -114,7 +126,8 @@ class Main {
             throw new RuntimeException("Ошибка");
         }
         int sum = calculator(sArray[1], num1, num2);
-        System.out.println(sum);
+
+        return  (String.valueOf(sum));
 
     }
 
